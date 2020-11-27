@@ -1,0 +1,784 @@
+\documentclass[12pt,a4paper]{jlreq}
+\usepackage[text={16cm,25cm},centering]{geometry}
+\usepackage{tgtermes,tgheros,tgcursor}
+\usepackage[libertine]{newtxmath}
+%\usepackage{newtxmath}
+%\usepackage{amsmath,amssymb}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\mathtoolsset{showonlyrefs}
+
+%\numberwithin{equation}{section}
+
+
+%\renewcommand{\jot}{1.2ex}
+%\renewcommand{\baselinestretch}{1.2}
+
+\newcommand{\Ncal}{\mathcal{N}}
+%\DeclareMathOperator*{\tr}{\mathrm{tr}}
+%\DeclareMathOperator*{\Tr}{\mathrm{Tr}}
+\DeclareMathOperator*{\Ind}{\mathrm{Ind}}
+
+\newcommand{\del}{\partial}
+
+\newcommand{\Pin}{\mathrm{Pin}^{+}}
+\newcommand{\Pim}{\mathrm{Pin}^{-}}
+%\renewcommand{\theequation}{\roman{equation}}
+\newtheorem{theo}{定理}
+\newtheorem{lemma}[theo]{補題}
+
+
+\begin{document}
+\begin{center}
+  {\bfseries \LARGE 様々な次元のスピノール}
+\end{center}
+\begin{flushright}
+  \today\\
+  {\bfseries 山口 哲}
+\end{flushright}
+\vspace{1cm}
+このノートでは一般の次元でのスピノールについてまとめる。主に参考にしたのは九後氏のノート\cite{Kugo}であるが少しconventionが異なる。例えばMinkovski時空の場合にガンマ行列が$i$倍異なる。Polchinskiの教科書\cite{Polchinski}も参考にした。
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\section{Clifford代数とSpin群の表現}
+$D$次元Euclid空間を考える。Clifford代数は生成子$\Gamma^{\mu},\ \mu=1,\dots,D$から生成される自由代数に次の関係式を入れたものである。
+\begin{align}
+  \{\Gamma^{\mu},\Gamma^{\nu}\}=2\eta^{\mu\nu} 1.
+  \label{genClifford}
+\end{align}
+ここで$\eta^{\mu\nu}$は平らな時空の計量で
+\begin{align*}
+  \eta^{\mu\nu}=
+  \begin{cases}
+    -1 & (\mu=\nu=1,2,\dots,t),\\
+    +1 & (\mu=\nu=t+1,\dots,D),\\
+    0 & (\mu\ne\nu).
+  \end{cases}
+\end{align*}
+また、$t,\ s:=D-t$はそれぞれ時間の次元、空間の次元である。
+つまり
+\begin{align}
+  (\Gamma^{\mu})^2=-1,\ (\mu=1,\dots,t),\quad(\Gamma^{\mu})^2=+1,\ (\mu=t+1,\dots,D),\quad \Gamma^{\mu}\Gamma^{\nu}=-\Gamma^{\nu}\Gamma^{\mu},\ \mu\ne\nu
+\end{align}
+である。
+
+Clifford代数の表現を考える。表現とは、抽象的な代数の元を積の構造を保つように行列で表すことである。
+
+Clifford代数は、その一部にso$(t,s)$を含むので、Clifford代数の表現を与えるとそれに対応してso$(t,s)$の表現が作れる。実際$\Gamma^{\mu}$をClifford代数の生成子の表現\footnote{抽象的な代数の元とその表現を同じ記号で表している。本来記号を変えるべきだと思うが、かえって煩雑になるのでここでは教科書などの慣習と同じように同じ記号を用いる。}として、行列$J^{\mu\nu}$を
+\begin{align*}
+  J^{\mu\nu}:=\frac12 \Gamma^{\mu\nu}
+\end{align*}
+で定義する。ここで
+\begin{align*}
+  \Gamma^{\mu_1\mu_2\dots \mu_r}:=\Gamma^{[\mu_1}\Gamma^{\mu_2}\cdots\Gamma^{\mu_r]}
+\end{align*}
+という記号を用いた。すると$J^{\mu\nu}$は交換関係
+\begin{align*}
+  [J^{\mu\nu},J^{\rho\sigma}]=
+  \eta^{\nu\rho}J^{\mu\sigma}
+  +\eta^{\mu\sigma}J^{\nu\rho}
+  -\eta^{\mu\rho}J^{\nu\sigma}
+  -\eta^{\nu\sigma}J^{\mu\rho}
+\end{align*}
+を満たすのでso$(t,s)$の表現になる\footnote{既約とは限らない。}。また、これの$\exp$をとることにより群Spin$(t,s)$の表現が得られる。
+
+Clifford代数の一つの表現$\Gamma^{\mu}$が与えられたとして、任意の正則行列$U$を用いて共役をとったもの$\Gamma'^{\mu}:=U\Gamma^{\mu}U^{-1}$も\eqref{genClifford}を満たすのでClifford代数の表現である。このようにつながっている$\Gamma^{\mu}$と$\Gamma'^{\mu}$は同値な表現であり、区別しないことが多い。
+
+\section{Euclid空間のClifford代数の表現}
+Euclid空間では$\eta^{\mu\nu}=\delta^{\mu\nu}$となるので、Clifford代数は
+\begin{align}
+  \{\Gamma^{\mu},\Gamma^{\nu}\}=2\delta^{\mu\nu} 1
+  \label{Clifford}
+\end{align}
+となる。ここではしばらくEuclid空間に限定して、Clifford代数や群の表現を考えていく。
+
+\subsection{偶数次元 $D=2n$}
+次のようにして、フェルミオン的な生成消滅演算子の組を作る。
+\begin{equation}
+\begin{aligned}
+  &b_1:=\frac12 (\Gamma^1+i\Gamma^2),\qquad
+  b_1^{\dag}:=\frac12 (\Gamma^1-i\Gamma^2),\\
+  &\cdots\\
+  &b_n:=\frac12(\Gamma^{2n-1}+i\Gamma^{2n}),\qquad
+  b_n^{\dag}:=\frac12(\Gamma^{2n-1}-i\Gamma^{2n}).
+\end{aligned}  
+\label{creani}
+\end{equation}
+ここで、$\dag$という記号を用いたが、必ずしも行列としてエルミート共役かどうかは、分からない。しかし、後で見るように、この$\dag$がエルミート共役になるように表現空間に内積を入れることができる。このような内積のもとで正規直交基底をとって行列で表現すれば、$\dag$は行列としてのエルミート共役とすることができる。
+
+さて、\eqref{creani}の生成消滅演算子の間の反交換関係は
+\begin{align}
+  \{b_A,b_B^{\dag}\}=\delta_{AB},\quad
+  \{b_A,b_B\}=
+  \{b_A^{\dag},b_B^{\dag}\}=0\quad
+\end{align}
+となる。任意の状態から始めて消滅演算子をかけていくことにより
+すべての消滅演算子で消される状態$\ket{++\dots+}$
+\begin{align}
+  b_A\ket{++\dots+}=0,\quad A=1,\dots,n
+\end{align}
+を必ず得る。ここから生成演算子をかけていくことにより、その他の状態を得る。
+\begin{align}
+  &b_1^{\dag}\ket{++\dots +}=:\ket{-+\dots +},\\
+  &b_2^{\dag}\ket{++\dots +}=:\ket{+-\dots +},\\
+  &b_1^{\dag}\ket{+-\dots -}=:\ket{--\dots -}
+\end{align}
+などと定義していく。このとき、例えば$b_1^{\dag}b_2^{\dag}=-b_2^{\dag}b_1^{\dag}$なので
+\begin{align}
+  &b_2^{\dag}\ket{-+\dots -}=-\ket{--\dots -}
+\end{align}
+であることに注意する。こうして$2^n$個の状態
+\begin{align}
+  \ket{\pm\pm\cdots\pm}
+\end{align}
+ができる。この$2^n$個の状態を基底とした表現を\cite{Kugo}にならって「標準表現」と呼ぶことにしよう。標準表現は作り方から既約表現である。
+逆に任意の既約表現はこの操作を施して基底を取り替えることにより、標準表現に持ってくることができる。
+このことから、\emph{偶数次元のClifford代数の既約表現は一種類しかない}、ということが結論できる
+\footnote{後で見るように、このClifford代数の既約表現から作られるSpin$(2n)$の表現は既約ではなく、二つの同値ではない表現に分かれる。このこととClifford代数の既約表現が一種類しかないことを混同してはならない。}。
+
+\paragraph{例：2次元}
+基底への生成消滅演算子の作用は
+\begin{align}
+  b_1\ket{+}=0,\quad b_1^{\dag}\ket{+}=:\ket{-},\quad b_1^{\dag}\ket{-}=0,\quad b_1\ket{-}=b_1b_1^{\dag}\ket{+}
+  =(1-b_1^{\dag}b_1)\ket{+}=\ket{+}
+\end{align}
+と計算できる。したがって$\ket{+}=\binom{1}{0},\quad \ket{-}=\binom{0}{1}$とすると
+\begin{align*}
+  b_1^{\dag}=
+  \mqty(0&0\\1&0),\quad
+  b_1=\mqty(0&1\\0&0)
+\end{align*}
+と表現できる。したがって
+\begin{align*}
+  \Gamma^{1}=b_1+b_1^{\dag}=\mqty(0&1\\  1&0)=:\sigma_1,\quad
+  \Gamma^{2}=\frac{1}{i}(b_1-b_1^{\dag})=\mqty(0&-i\\  i&0)=:\sigma_2
+\end{align*}
+となる。
+
+一般の$2n$次元では、
+\begin{align}
+  &\Gamma^{1}=\sigma_1\otimes 1 \otimes \cdots \otimes 1,\quad
+  \Gamma^{2}=\sigma_2\otimes 1 \otimes \cdots \otimes 1,\nonumber\\
+  &\Gamma^{3}=\sigma_3\otimes\sigma_1\otimes \cdots \otimes 1,\quad
+  \Gamma^{4}=\sigma_3\otimes\sigma_2 \otimes \cdots \otimes 1,\nonumber\\
+  &\cdots
+  \label{stdrep}
+\end{align}
+のように表現できる。繰り返しになるが、この表現を「標準表現」と呼ぶ。任意の既約表現は標準表現に同値である。
+
+\subsubsection{$C$行列}
+$\Gamma^{\mu}$をClifford代数の標準表現としたとき、$(\Gamma^{\mu})^{T}$や$-\Gamma^{\mu}$もClifford代数の既約表現になっていて、しかもエルミート性を保つ。したがってこれらは標準表現に同値であるので、次のような行列$C_{\eta'},\ \eta'=\pm 1$が存在するはずである。
+\begin{align}
+  C_{\eta'}\Gamma^{\mu}C_{\eta'}^{-1}=\eta' \Gamma^{\mu}{}^{T},\qquad C_{\eta'}^{\dag}C_{\eta'}=1.
+  \label{C}
+\end{align}
+実際、$C_{\eta'}$は次のようにとれる。
+\begin{align}
+  &C_{+}=\sigma_1\otimes \sigma_2\otimes \sigma_1\otimes \cdots,\\
+  &C_{-}=\sigma_2\otimes \sigma_1\otimes \sigma_2\otimes \cdots.
+  \label{stB}
+\end{align}
+ここでは標準表現という特別な基底をとり、$C$も具体的な一つをとって考えたが、今後の議論がこの基底の取り方によらないことは、付録\ref{app:C}で見る。
+
+この$C$行列の転置に対する振る舞いは重要である。符号$\epsilon'$を
+\begin{align}
+  C_{\eta'}^{T}=\epsilon' C_{\eta'}
+\end{align}
+で定義する。式\eqref{stB}から
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}\hline
+    $n \mod 4$           & 1 & 2 & 3 & 4\\ \hline\hline
+    $\epsilon'$ when $\eta'=+$ & $+$ & $-$ & $-$ & $+$\\ \hline
+    $\epsilon'$ when $\eta'=-$ & $-$ & $-$ & $+$ & $+$\\ \hline
+  \end{tabular}
+\end{center}
+となることが分かる。式一つで書くこともできて
+\begin{align*}
+  \epsilon'=(-1)^{[n/2]}\eta'^n
+\end{align*}
+となる。ここで$[\cdot]$はGauss記号である。
+
+\subsection{奇数次元$D=2n+1$}
+奇数次元$D=2n+1$の場合、$\Gamma^1$から$\Gamma^{2n}$までは$D=2n$のときの既約表現で表し、$\Gamma^{2n+1}$は、
+\begin{align}
+  \Gamma^{2n+1}=(-i)^n \Gamma^{1}\Gamma^{2}\cdots \Gamma^{2n}
+  \label{2n+1:1}
+\end{align}
+とすれば、Clifford代数の反交換関係\eqref{Clifford}を満たす。ここで注意することは、\emph{奇数次元の場合Clifford代数の同値でない既約表現が２種類ある}ことである。\eqref{2n+1:1}に対して$\Gamma^{2n+1}$の代わりに
+\begin{align}
+  \Gamma'^{2n+1}=-(-i)^n \Gamma^{1}\Gamma^{2}\cdots \Gamma^{2n}\label{2n+1:2}
+\end{align}
+を持ってきたとすると、これらは同値な表現ではあり得ない。なぜなら関係式\eqref{2n+1:1}や\eqref{2n+1:2}は、共役$\Gamma^{\mu}\to U\Gamma^{\mu}U^{-1}$で不変であるからである。別の言い方をするとClifford代数のある既約表現$\Gamma^{\mu}$があったとき$-\Gamma^{\mu}$も既約表現であるが、元の既約表現とは同値ではない既約表現である。
+
+これらを踏まえると$\Gamma^{\mu}{}^{T}$は$\Gamma^{\mu}$に同値か$-\Gamma^{\mu}$に同値かのいずれかである。つまり、偶数次元の場合は$\eta'=\pm$は両方あり得たが、奇数次元では、この符号$\xi'$
+\begin{align*}
+  C\Gamma^{2n+1}C^{-1}=\xi' (\Gamma^{2n+1})^{T}
+\end{align*}
+は符号はどちらかに決まる。
+$\xi'$は、\eqref{2n+1:1}の両辺を$C,C^{-1}$ではさむことで
+\begin{align*}
+  C\Gamma^{2n+1}C^{-1}&=(-i)^n
+  C\Gamma^{1}C^{-1}C\Gamma^2C^{-1}\dots C\Gamma^{2n}C^{-1}\\
+  &=(-i)^n(\Gamma^{1})^T(\Gamma^{2})^T\dots (\Gamma^{2n})^T\\
+  &=(-i)^n(\Gamma^{2n}\dots \Gamma^{1})^T\\
+  &=(-1)^n (-i)^n(\Gamma^1\dots \Gamma^{2n})^T\\
+  &=(-1)^n (\Gamma^{2n+1})^T
+\end{align*}
+となって、$\xi'=(-1)^n$となる。したがって$C$としては$C_{\xi'}$の方をとって来なければならない。
+\subsection{まとめ}
+ここまででClifford代数の表現を考え、様々な符号を導入してきたが、ここでそれらについてまとめておく。
+
+まず、Clifford代数の既約表現は$D=2n$では１種類のみ、$D=2n+1$では２種類ある。$D=2n+1$での２種類はすべての$\Gamma^{\mu}$をかけたときの符号
+\begin{align*}
+  \Gamma^{1}\cdots \Gamma^{2n+1}=\pm i^n
+\end{align*}
+で区別される。
+
+$C$行列は
+\begin{align*}
+  C\Gamma^{\mu}C^{-1}=\eta'(\Gamma^{\mu})^T,\quad
+  C^{\dag}C=1
+\end{align*}
+として導入される。$D=2n$あるいは$D=2n+1$で$\xi'=(-1)^n$として定義する。偶数次元では$\eta'$はどちらの符号もありうるが、奇数次元では$\eta'=\xi'$の場合のみある。
+
+$C$行列の転置を考え
+\begin{align*}
+  C^{T}=\epsilon' C
+\end{align*}
+として符号$\epsilon'$を導入する。
+
+これらの符号は$D \mod 8$で決まり、次の表のようになる。
+\begin{table}[htb]
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+    $D \mod 8$ & 1 & \multicolumn{2}{|c|}{2} & 3 & \multicolumn{2}{|c|}{4} & 5 & \multicolumn{2}{|c|}{6} & 7 & \multicolumn{2}{|c|}{8} \\ \hline
+    $\xi'$ & $+$ & \multicolumn{2}{|c|}{$-$} & $-$ & \multicolumn{2}{|c|}{$+$} & $+$ & \multicolumn{2}{|c|}{$-$} & $-$ & \multicolumn{2}{|c|}{$+$} \\\hline
+    $\eta'$ & $+$ & $+$ & $-$ &  $-$ & $+$ & $-$ & $+$ & $+$ & $-$ & $-$ & $+$ & $-$ \\ \hline
+    $\epsilon'$ & $+$ & $+$ & $-$ & $-$ & $-$ & $-$ & $-$ & $-$ & $+$ & $+$ & $+$ & $+$ \\ \hline
+  \end{tabular}
+\end{center} 
+\caption{様々な符号の表}
+\label{sign}
+\end{table}
+
+\section{Euclid空間のSpin群の表現}
+\subsection{DiracスピノールとWeylスピノール}
+$D=2n$で$\Gamma^{\mu}$をClifford代数の標準表現とする。このとき、$J^{\mu\nu}=\frac12 \Gamma^{\mu\nu}$はso$(2n)$の可約表現である。この表現空間の元$\psi$をDiracスピノールと呼ぶ。このとき\eqref{2n+1:1}の$\Gamma^{2n+1}$に対して
+\begin{align*}
+  [\Gamma^{2n+1},J^{\mu\nu}]=0
+\end{align*}
+となるので$\Gamma^{2n+1}$の固有空間$\Gamma^{2n+1}\psi=\pm \psi$はso$(2n)$の作用で不変となる。それぞれの固有空間はso$(2n)$の既約表現になり、その元をWeylスピノールと呼ぶ。また$\Gamma^{2n+1}$の固有値をchiralityと呼ぶ。
+
+$D=2n+1$では、Clifford代数の表現から作られるso$(2n+1)$の表現は既約表現である。この表現空間の元はやはりDiracスピノールと呼ばれる。$D=2n+1$ではClifford代数の既約表現は２種類あったが、これらから作られるso$(2n+1)$の表現は同じものである。
+
+\subsection{荷電共役}
+ここでは、荷電共役について考えよう。荷電共役とは表現論の立場から言えば、複素共役表現を考えることである。もし複素共役表現が元の表現と同値ならば、基底の変更を考えることで、同じ行列での表現になる。この基底の変更、あるいは共役を含めて荷電共役と呼ぶ。
+
+$D=2n$あるいは$D=2n+1$とする。$C$を$C$行列（偶数次元ではどちらかを選ぶ）とする。$\psi$をDiracスピノールとして、その荷電共役$\psi^{c}$を
+\begin{align}
+  \psi^{c}=C^{-1}\psi^{*}\label{charge-conj}
+\end{align}
+と定義すると、$\psi^{c}$はまたDiracスピノールとなる。実際so$(D)$の作用に対して
+\begin{align*}
+  (J^{\mu\nu}\psi)^{c}=J^{\mu\nu}\psi^{c}
+\end{align*}
+であることが\eqref{C}と$\Gamma^{\mu}$がエルミート行列であることを用いてチェックできる。
+
+荷電共役を２回やったものは
+\begin{align*}
+  (\psi^{c})^c=(C^{-1}\psi^{*})^c
+  =C^{-1} C^{-1 *} \psi
+  =\epsilon' C^{-1}C^{-1\dag} \psi
+  =\epsilon' \psi
+\end{align*}
+となる。 $\epsilon'=+1$の場合、このDiracスピノールの表現は実表現になり、$\psi^c=\psi$となるようなスピノールを考えることができる。このようなスピノールをMajoranaスピノールと呼ぶ。
+
+ところで$C$は、表現論の立場からは不変双線形形式の役割を果たす。つまり$\chi,\psi$を二つのDiracスピノールとすると
+\begin{align*}
+  C_{\alpha\beta}\chi^{\alpha}\psi^{\beta}
+  =\chi^{T}C\psi=\chi^{c \dag} \psi
+\end{align*}
+は、so$(D)$の作用で不変である。
+
+したがって、Majoranaスピノールが存在する$\epsilon'=+1$の場合には、Diracスピノール表現は対称な不変双線形形式が存在する実表現ということになる。実際基底の取り換えで$C=1$にすることができて（付録\ref{app:symmetric}参照）、すべての$\Gamma^{\mu}$を実対称行列にとることができる。
+
+$\epsilon'=-1$の場合はDiracスピノールは反対称な不変双線形形式が存在する擬実表現である。
+
+奇数次元の場合はDiracスピノールは既約表現であるので次元のみによって決まる$\epsilon'$によって実か擬実かが決まる。偶数次元ではDiracスピノールは可約表現なので、それが複素か実か擬実かということが一意に決まるとは限らない。偶数次元の場合には既約表現であるWeylスピノールで考えるべきである。
+
+\subsection{Weylスピノールの荷電共役}
+$D=2n$とし、$\psi$を$\Gamma^{2n+1}\psi=a \psi,\ a=\pm$ となるWeylスピノールとする。
+\eqref{charge-conj}の意味での荷電共役$\psi^c$に$\Gamma^{2n+1}$をかけると
+\begin{align*}
+  \Gamma^{2n+1}\psi^{c}
+  =C^{-1}C\Gamma^{2n+1}C^{-1}\psi^{*}
+  =C^{-1}\xi' \Gamma^{2n+1 *} \psi^{*}
+  =\xi' a C^{-1}\psi^{*}
+  =\xi' a \psi^{c}
+\end{align*}
+となるので、$\psi^{c}$のchiralityは$\xi' a$である。したがって、$\xi'=-1$のとき、つまり$D=4\ell+2$のときには$\psi$と$\psi^c$は異なる表現に属するのでWeylスピノールは複素表現である。一方$\xi'=+1$つまり$D=4\ell$の場合には$\psi$と$\psi^c$は同じ表現になるので、実または擬実である。
+
+$D=4\ell$の場合に、実か擬実かは、$\epsilon'=+1$の$C$が存在するか否かで決まる。表\ref{sign}によると$D=8k$の場合には、$\epsilon'=+1$でありしたがってWeylスピノールは実である。このとき基底の変換により$C=1$にすることができ、この基底ですべての$\Gamma^{\mu}$は実対称行列で$\Gamma^{2n+1}$は対角行列にすることができる。さらにWeylスピノールに$\psi^c=\psi$の条件を課すことができる。このようなスピノールをMajorana-Weylスピノールと呼ぶ。
+
+$D=8k+4$の場合には$\epsilon'=-1$であり、Weylスピノールは擬実表現である。
+
+\subsection{まとめ}
+これまで考察してきたSpin$(D)$の表現について表\ref{SpinDrep}にまとめる。
+\begin{table}[htb]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+      $D \mod 8$ & 1 & \multicolumn{2}{|c|}{2} & 3 & \multicolumn{2}{|c|}{4} & 5 & \multicolumn{2}{|c|}{6} & 7 & \multicolumn{2}{|c|}{8} \\ \hline
+      $\xi'$ & $+$ & \multicolumn{2}{|c|}{$-$} & $-$ & \multicolumn{2}{|c|}{$+$} & $+$ & \multicolumn{2}{|c|}{$-$} & $-$ & \multicolumn{2}{|c|}{$+$} \\\hline
+      $\eta'$ & $+$ & $+$ & $-$ &  $-$ & $+$ & $-$ & $+$ & $+$ & $-$ & $-$ & $+$ & $-$ \\ \hline
+      $\epsilon'$ & $+$ & $+$ & $-$ & $-$ & $-$ & $-$ & $-$ & $-$ & $+$ & $+$ & $+$ & $+$ \\ \hline
+      あり得るスピノール & M & \multicolumn{2}{|c|}{M,W} &  & \multicolumn{2}{|c|}{W} &  & \multicolumn{2}{|c|}{M,W} & M & \multicolumn{2}{|c|}{M,W,MW} \\ \hline
+      C, R, PR & R & \multicolumn{2}{|c|}{C} & PR & \multicolumn{2}{|c|}{PR} & PR & \multicolumn{2}{|c|}{C} & R & \multicolumn{2}{|c|}{R} \\ \hline
+    \end{tabular}
+  \end{center} 
+  \caption{Spin$(D)$の表現のまとめ。あり得るスピノールのところはM: Majorana, W: Weyl, MW: Majorana-Weylで表した。また、C, R, PRの欄はSpin$(D)$の既約表現（奇数次元はDirac, 偶数次元はWeyl）について、それぞれC: 複素、R: 実、PR: 擬実を示した。}
+  \label{SpinDrep}
+\end{table}
+
+\section{Euclid空間の$\Pin$群の表現}
+Clifford代数の表現からは、$\Pin(D)$の表現も作ることができる。$\Pin(D)$とは、鏡映を含むO$(D)$群の二重被覆であり、Spin$(D)$に鏡映を合わせたものである。肩の$+$は鏡映$R$が$R^2=1$を満たすことを表す。
+
+Clifford代数の表現が与えられたとき、様々なSpin$(D)$の元
+$\exp(\theta_{\mu\nu}\Gamma^{\mu\nu})$と$\mu$軸に垂直な面での鏡映$\Gamma^{\mu}$をかけたりしてできるもの全体で表現される。
+
+\subsection{偶数次元$D=2n$}
+偶数次元では、鏡映によりchiralityが入れ替わるので、Diracスピノールが既約表現になる。また、Clifford代数の既約表現は１種類しかないため、$\Pin(2n)$のスピノール表現も１種類しかない。
+
+この表現は実か擬実であるが、どちらになるかは次のようにして分かる。$\Pin(2n)$の表現には、$\Gamma^{\mu}$の１次が含まれるので、荷電共役を考える際には$C=C_{+}$を持ってくる必要がある。そうすれば、任意の$\Pin(2n)$の元の表現$g$に対して
+\begin{align*}
+  CgC^{-1}=g^*
+\end{align*}
+が成り立つ。このとき$\epsilon'=+$であれば実表現、$\epsilon'=-$であれば擬実表現である。
+
+\subsection{奇数次元$D=2n+1$}
+奇数次元では、Diracスピノールが既約表現である。Clifford代数の既約表現が２種類あることに対応して$\Pin(2n+1)$の既約スピノール表現も２種類ある。
+
+奇数次元の場合、$C\Gamma^{\mu}C^{-1}=\xi' \Gamma^{\mu*}$であることを思い出す。したがって$\xi'=-1$の場合、つまり$D=4\ell+3$の場合には複素共役により異なる表現になるので複素表現である。$\xi'=+1$の場合、つまり$D=4\ell+1$の場合には実あるいは擬実である。この場合$\epsilon'=+1$なら対称な不変双線形形式があるので実、$\epsilon'=-1$なら反対称な双線形形式があるので擬実である。
+
+\subsection{まとめ}
+ここまでの$\Pin(D)$の表現の考察の結果をまとめる。偶数次元の場合、$\Pin(D)$の既約スピノール表現は１種類しかなく、実または擬実である。$C$行列としては$\eta'=+1$のものを選ばなければならない。奇数次元の場合、同値でない２種類の表現がある。これらの結果を表にまとめる。
+\begin{table}[htb]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}\hline
+      $D \mod 8$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\ \hline
+      $\xi'$ & $+$ & $-$ & $-$ & $+$ & $+$ & $-$ & $-$ & $+$ \\\hline
+      $\epsilon'$ & $+$ & $+$ & $-$ & $-$ & $-$ & $-$ & $+$ & $+$ \\ \hline
+      C, R, PR & R & R & C & PR & PR & PR & C & R \\ \hline
+    \end{tabular}
+  \end{center} 
+  \caption{$\Pin(D)$の表現。偶数次元は$\eta'=+1$の場合のみ示している。}
+  \end{table}
+
+\section{Euclid空間の$\Pim$群の表現}
+鏡映を含むO$(D)$群の二重被覆には、先程考えた$\Pin(D)$とは異なるものがある。これは、$\Pim(D)$と呼ばれる。肩の$-$は鏡映$R$が$R^2=-1$を満たすことを表す。ここでは$\Pim(D)$の表現を考えよう。
+
+Clifford代数の表現が与えられたとき、先程と異なり$\mu$軸に垂直な面での鏡映は$i\Gamma^{\mu}$で表される。これらと様々なSpin$(D)$の元
+$\exp(\theta_{\mu\nu}\Gamma^{\mu\nu})$をかけたりしたもの全体が$\Pim(D)$の表現になる。
+
+\subsection{偶数次元$D=2n$}
+偶数次元では、鏡映によりchiralityが入れ替わるので、Diracスピノールが既約表現になる。また、Clifford代数の既約表現は１種類しかないため、$\Pim(2n)$のスピノール表現も１種類しかない。
+
+この表現は実か擬実であるが、どちらになるかは次のようにして分かる。$\Pim(2n)$の表現には、$i\Gamma^{\mu}$の１次が含まれるので、荷電共役を考える際には$C=C_{-}$を持ってくる必要がある。そうすれば、任意の$\Pim(2n)$の元の表現$g$に対して
+\begin{align*}
+  CgC^{-1}=g^*
+\end{align*}
+が成り立つ。このとき$\epsilon'=+$であれば実表現、$\epsilon'=-$であれば擬実表現である。
+
+\subsection{奇数次元$D=2n+1$}
+奇数次元では、Diracスピノールが既約表現である。Clifford代数の既約表現が２種類あることに対応して$\Pim(2n+1)$の既約スピノール表現も２種類ある。
+
+奇数次元の場合、$C (i\Gamma^{\mu})C^{-1}=-\xi' (i\Gamma^{\mu})^*$であることを思い出す。したがって$\xi'=+1$の場合、つまり$D=4\ell+1$の場合には複素共役により異なる表現になるので複素表現である。$\xi'=-1$の場合、つまり$D=4\ell+3$の場合には実あるいは擬実である。この場合$\epsilon'=+1$なら対称な不変双線形形式があるので実、$\epsilon'=-1$なら反対称な双線形形式があるので擬実である。
+
+\subsection{まとめ}
+ここまでの$\Pim(D)$の表現の考察の結果をまとめる。偶数次元の場合、$\Pim(D)$の既約スピノール表現は１種類しかなく、実または擬実である。$C$行列としては$\eta'=-1$のものを選ばなければならない。奇数次元の場合、同値でない２種類の表現がある。これらの結果を表にまとめる。
+\begin{table}[htb]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}\hline
+      $D \mod 8$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\ \hline
+      $\xi'$ & $+$ & $-$ & $-$ & $+$ & $+$ & $-$ & $-$ & $+$ \\\hline
+      $\epsilon'$ & $+$ & $-$ & $-$ & $-$ & $-$ & $+$ & $+$ & $+$ \\ \hline
+      C, R, PR & C & PR & PR & PR & C & R & R & R \\ \hline
+    \end{tabular}
+  \end{center} 
+  \caption{$\Pim(D)$の表現。偶数次元は$\eta'=-1$の場合のみ示している。}
+  \end{table}
+    
+\section{一般の時間、空間次元をもつ時空のClifford代数とSpin群の表現}
+$\Gamma_{E}^{\mu},\ \mu=1,\dots,2n$を\eqref{stdrep}で表されるEuclid空間のClifford代数の標準表現とする。$D=2n+1$の場合には\eqref{2n+1:1}あるいは\eqref{2n+1:2}により$\Gamma_{E}^{2n+1}$を付け加える。そうすれば、
+\begin{align*}
+  \{\Gamma_{E}^{\mu},\Gamma_{E}^{\nu}\}=2\delta^{\mu\nu}1
+\end{align*}
+を満たす。$\Gamma^{\mu}$を
+\begin{align}
+  \Gamma^{\mu}:=
+  \begin{cases}
+    i\Gamma^{\mu}_{E},\ \mu=1,\dots,t,\\
+    \Gamma^{\mu}_{E},\ \mu=t+1,\dots,D,
+  \end{cases}
+\end{align}
+と定義すれば、\eqref{genClifford}の反交換関係を満たすので、一般のClifford代数の表現になっている。作り方から、偶数次元では既約表現は１種類しかなく、奇数次元では同値でない２種類の既約表現がある。
+
+$C$を\eqref{stB}で表される$C_{\eta'}$とすると、転置には$i$が掛かっていることが影響を及ぼさないことから、
+\begin{align*}
+  C\Gamma^{\mu}C^{-1}=\eta'(\Gamma^{\mu})^T
+\end{align*}
+の関係はそのまま成り立つ。また奇数次元の場合に$\eta'=\xi'$のみが許されることも同様である。
+
+\subsection{Dirac共役}
+$\psi$をDiracスピノールとする。$\psi$のDirac共役$\bar{\psi}$を
+\begin{align*}
+  \bar{\psi}:=\psi^{\dag}\Gamma^{1}\cdots \Gamma^{t}
+\end{align*}
+として定義する。このとき、Spin$(t,s)$の元の表現を$g$として、$\psi\to g\psi$の変換を行ったとき$\bar{\psi}\to \bar{\psi}g^{-1}$と変換する。つまり、$\psi,\chi$をDiracスピノールとすると$\bar{\psi}\chi$はSpin$(t,s)$の作用で不変になる。
+
+\subsection{荷電共役とB行列}
+Diracスピノール$\psi$の荷電共役$\psi^c$を
+\begin{align}
+  \psi^{c}:=C^{-1}\bar{\psi}^T
+\end{align}
+で定義する。すると$\psi^{c}$はまたDiracスピノールになる。これをもう少し注意深く調べるために行列$B$を
+\begin{align}
+  B^{-1}=C^{-1} (\Gamma^{1}\cdots \Gamma^{t})^T
+  \label{defB}
+\end{align}
+で定義する。定義から$B$はユニタリー行列である。すると
+\begin{align*}
+  \psi^{c}:=B^{-1}\psi^{*}
+\end{align*}
+と書ける。
+
+このように定義した$B$が次の性質を満たすことが分かる
+\begin{align}
+  B\Gamma^{\mu}B^{-1}=\eta \Gamma^{\mu*},\qquad B^T=\epsilon B.\label{B-properties1}
+\end{align}
+ただし、
+\begin{align}
+  \xi=(-1)^{\qty[\frac{s-t}{2}]},\quad
+  \epsilon=(-1)^{\qty[\frac{s-t}{4}]}\eta^{\qty[\frac{s-t}{2}]}
+  \label{B-signs}
+\end{align}
+である。また偶数次元の場合は$\eta=(-1)^{t}\eta'$は$\pm$両方あり得るが、奇数次元の場合は$\eta=\xi$の場合のみである。証明は付録\ref{app:proofB}にまわす。
+
+さて、荷電共役（複素共役）で表現がどのようになるかを考えよう。Euclid空間の場合の$C,\eta',\xi',\epsilon'$を$B,\eta,\xi,\epsilon$で置き換えれば、完全に同様にできる。例えば、Diracスピノール$\psi$に対して、荷電共役を２回やると
+\begin{align*}
+  (\psi^c)^c=(B^{-1}\psi^{*})^c
+  =B^{-1}B^{-1*}\psi
+  =\epsilon B^{-1}B^{-1\dag}\psi
+  =\epsilon \psi
+\end{align*}
+となるので$\epsilon=1$のとき、$\psi^c=\psi$の条件を課すことができ、Majoranaスピノールが存在する。このとき、適当な基底をとれば$B=1$にすることができる。偶数次元$D=2n$の場合、Weylスピノールを考えるとchiralityは$\Gamma^{2n+1}=(-i)^{n-t}\Gamma^{1}\cdots \Gamma^{2n}$
+で表される。これは、空間$s$を一つ増やして$2n+1$次元にしたときの$\Gamma^{2n+1}$なので、
+\begin{align*}
+  B\Gamma^{2n+1}B^{-1}=\xi\Gamma^{2n+1}
+\end{align*}
+を満たすことに注意する。
+$\Gamma_E^{2n+1}\psi=a\psi,\ a=\pm$ として、荷電共役を考えると
+\begin{align*}
+  \Gamma^{2n+1}\psi^c 
+  = B^{-1}B\Gamma_E^{2n+1}B^{-1} \psi^{*}
+  = \xi B^{-1}\Gamma_E^{2n+1 *} \psi^{*}
+  =\xi a B^{-1}\psi^{*}
+  =\xi a \psi^c 
+\end{align*}
+となる。したがって$\xi=-1$の場合、荷電共役は別の表現になり、$\xi=+1$の場合、荷電共役は同じ表現になる。特に$\xi=+1$で$\epsilon=+1$の場合、Majorana-Weylスピノールが存在する。
+
+注意することは、今の場合Spin$(s,t)$は一般にコンパクトではないし、表現はユニタリー表現ではないので、コンパクト群のユニタリー表現の場合の言葉遣い（複素、実、擬実）が必ずしも便利であるとは限らないことである。
+例えば、複素共役で異なる表現に行くものを複素表現、同じ表現に行くが、$B$が対称なものを実表現、$B$が反対称なものを擬実表現と呼ぶことにする。
+すると実表現ならMajorana(-Weyl)スピノール$\psi^c=\psi$が存在し、適当に基底を取りかえることで$B=1$にもってくることができる。擬実表現の場合はそれはできない。ただし、実表現の場合に対称な不変双線形形式があるとは限らないし、擬実表現の場合に反対称な不変双線形形式があるとは限らない。
+実際には不変双線形形式を表すのは$B$ではなくて$C$である。
+
+結果を表\ref{SpinDrepGen}にまとめる。
+\begin{table}[htb]
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+      $(s-t) \mod 8$ & 1 & \multicolumn{2}{|c|}{2} & 3 & \multicolumn{2}{|c|}{4} & 5 & \multicolumn{2}{|c|}{6} & 7 & \multicolumn{2}{|c|}{8} \\ \hline
+      $\xi$ & $+$ & \multicolumn{2}{|c|}{$-$} & $-$ & \multicolumn{2}{|c|}{$+$} & $+$ & \multicolumn{2}{|c|}{$-$} & $-$ & \multicolumn{2}{|c|}{$+$} \\\hline
+      $\eta$ & $+$ & $+$ & $-$ &  $-$ & $+$ & $-$ & $+$ & $+$ & $-$ & $-$ & $+$ & $-$ \\ \hline
+      $\epsilon$ & $+$ & $+$ & $-$ & $-$ & $-$ & $-$ & $-$ & $-$ & $+$ & $+$ & $+$ & $+$ \\ \hline
+      あり得るスピノール & M & \multicolumn{2}{|c|}{M,W} &  & \multicolumn{2}{|c|}{W} &  & \multicolumn{2}{|c|}{M,W} & M & \multicolumn{2}{|c|}{M,W,MW} \\ \hline
+      C, R, PR & R & \multicolumn{2}{|c|}{C} & PR & \multicolumn{2}{|c|}{PR} & PR & \multicolumn{2}{|c|}{C} & R & \multicolumn{2}{|c|}{R} \\ \hline
+    \end{tabular}
+  \end{center} 
+  \caption{Spin$(s,t)$の表現のまとめ。}
+  \label{SpinDrepGen}
+\end{table}
+
+
+
+\appendix
+\section{基底の変換}
+\label{app:C}
+\subsection{C行列の基底の変換について}
+$U$をユニタリー行列、$\Gamma^{\mu}$をClifford代数のある既約表現として、$\Gamma'^{\mu}$を
+\begin{align}
+  \Gamma^{\mu}=U\Gamma'^{\mu}U^{-1}
+  \label{transform}
+\end{align}
+で定義したとき、$\Gamma'^{\mu}$もClifford代数の（同値な）表現になっている。このとき$C$がどのように振る舞うかを見てみよう。特に次の定理\ref{th:epsilon}を証明する。
+\begin{theo}\label{th:epsilon}
+  符号$\epsilon'$はこの変換で変わらない。
+\end{theo}
+
+式\eqref{C}で表される$C$の性質
+\begin{align*}
+  C\Gamma^{\mu}C^{-1}=\eta'\Gamma^{\mu T}
+\end{align*}
+に式\eqref{transform}を代入して変形すると
+\begin{align*}
+  U^{T}C U \Gamma'^{\mu} U^{-1}CU^{-1 T}=\eta'\Gamma'^{\mu T}
+\end{align*}
+となるので
+\begin{align}
+  C':=U^{T}C U\label{newC}
+\end{align}
+と定義すれば、
+\begin{align*}
+  C' \Gamma'^{\mu} C'^{-1}=\eta'\Gamma'^{\mu T}
+\end{align*}
+となる。したがってこの$C'$は$\Gamma'^{\mu}$に対するC行列である。定義\eqref{newC}から$C'$はまたユニタリーである。$C'$の転置に対する振る舞いを見てみると
+\begin{align*}
+  C'^{T}=(U^T C U)^{T}
+  =U^T C^T U
+  =\epsilon'U^T C U
+  =\epsilon' C'
+\end{align*}
+となるので、$C$と同じ符号$\epsilon'$が現れる。
+
+基底の変換のもとで$B$も$C$と同じ変換をする。したがって符号$\epsilon$も基底の取り方によらない。
+
+\subsection{$C$の取り方の一意性}
+標準表現に対して本文では$C$として一つの例をとってそこから始めた。しかし、Clifford代数の既約表現を一つ決めれば$C$の取り方はほぼ一意的であることを示す次の定理が成り立つ。
+\begin{theo}
+  ある符号$\eta$を決めたとして、$C$と$C'$が両方とも
+\begin{align}
+  C\Gamma^{\mu}C^{-1}=\eta (\Gamma^{\mu})^{T},\qquad  C'\Gamma^{\mu}C'^{-1}=\eta (\Gamma^{\mu})^{T}
+  \label{CC'}
+\end{align}
+を満たす場合、
+  ある複素数$a$を用いて$C=a C'$となる。
+\end{theo}
+
+\paragraph{証明} 正則な行列$V$を$V:=C'^{-1}C$で定義する。そうすると\eqref{CC'}より
+\begin{align}
+  V\Gamma^{\mu} V^{-1} 
+  =C'^{-1}C\Gamma^{\mu}C^{-1} C'
+  =\eta C'^{-1}(\Gamma^{\mu})^{T} C'
+  =\Gamma^{\mu}
+\end{align}
+となるので、$V$はすべての$\Gamma^{\mu}$と可換である。Schurの補題より\footnote{個人的に（おそらく多くの物理学者にとっても）なじみがあるのは、群の既約表現に関するSchurの補題だが、今の場合Clifford代数の既約表現である。ただし、Clifford代数の既約表現から$\Pin$群の既約表現が導かれるので、難しいことを考えなくても、群の既約表現に関するSchurの補題が適用できる。}$V$は単位行列のスカラー倍$V=a 1,\ (a \text{はある複素数})$と書ける。したがって$C=aC'$が示された。
+
+ここで考えている場合、$C$も$C'$もユニタリー行列であるので$|a|=1$、つまり$a$は位相である。
+
+
+\subsection{$C$が対称の場合、$C=1$となる基底がとれること}
+\label{app:symmetric}
+ここと次の節に関しては、例えば\cite{Zumino}が参考になる。
+
+次の命題を証明する。
+\begin{theo}
+  $C$が$N\times N$ ユニタリー行列かつ対称行列のとき、$C=U^TU$となるユニタリー行列$U$が存在する。
+\end{theo}
+
+$C$は対称行列なので、ある実対称行列$A,B$を用いて
+\begin{align*}
+  C=A+iB
+\end{align*}
+と書ける。$C$がユニタリー行列であることから
+\begin{align*}
+  1=C^{\dag}C=(A-iB)(A+iB)=A^2+B^2+i(AB-BA)
+\end{align*}
+なので、実部と虚部を比較して
+\begin{align}
+  [A,B]=0,\quad A^2+B^2=1
+  \label{unitary-cond}
+\end{align}
+となる。特に実対称行列$A$と$B$は可換なので直交行列$O$で対角化できて
+\begin{align*}
+  A=O^T 
+  \mqty(\dmat{a_1,a_2,\ddots,a_N})
+  O,\quad
+  B=O^T 
+  \mqty(\dmat{b_1,b_2,\ddots,b_N})
+  O
+\end{align*}
+と書ける。ただし、\eqref{unitary-cond}の２つめの条件から$a_i^2+b_i^2=1$となるので、ある$\theta_i$を用いて$a_i=\cos\theta_i,\quad b_i=\sin \theta_i$と書ける。これらを用いると
+\begin{align}
+  C&=A+iB
+  =O^{T}
+  \mqty(\dmat{a_1+ib_1,a_2+ib_2,\ddots,a_N+ib_N})
+  O\\
+  &=O^T
+  \mqty(\dmat{a_1+ib_1,a_2+ib_2,\ddots,a_N+ib_N})
+  O
+  =O^T
+  \mqty(\dmat{e^{i\theta_1},e^{i\theta_2},\ddots,e^{i\theta_N}})
+  O\\
+  &=O^T
+  \mqty(\dmat{e^{i\theta_1/2},e^{i\theta_2/2},\ddots,e^{i\theta_N/2}})
+  \mqty(\dmat{e^{i\theta_1/2},e^{i\theta_2/2},\ddots,e^{i\theta_N/2}})
+  O
+\end{align}
+となる。したがって
+\begin{align*}
+  U=  \mqty(\dmat{e^{i\theta_1/2},e^{i\theta_2/2},\ddots,e^{i\theta_N/2}})
+  O
+\end{align*}
+とすれば、$C=U^TU$となって命題が証明される。
+
+\subsection{$C$が反対称の場合に$C$を標準形にできること}
+$(2K)\times (2K)$行列$\Omega$を
+\begin{align*}
+  \Omega=
+  \mqty(\dmat{0&1\\-1&0, 0&1\\-1&0,\ddots,0&1\\-1&0})
+\end{align*}
+と定義する。このとき、次の定理が成り立つ。
+\begin{theo}
+  $C$が$(2K)\times (2K)$ユニタリー行列で反対称行列であるとき、あるユニタリー行列を用いて$C=U^T\Omega U$と書ける。
+\end{theo}
+
+証明は対称の場合と同様である。しかし、途中で使用する次の補題は授業などではお目にかからないかもしれない。
+\begin{lemma}\label{lemma}
+  $A$が$N\times N$実反対称行列のとき、ある直交行列$O$を用いて
+  \begin{align*}
+    A=O^T 
+    \mqty(\dmat{0&a_1\\-a_1&0, 0&a_2\\-a_2&0,\ddots,0&a_K\\-a_K&0, 0, \ddots,0})O
+  \end{align*}
+  と書ける。
+\end{lemma}
+
+\subsection{補題\ref{lemma}の証明}
+$A^2$は実対称行列で半負定値なので、直交行列で対角化できる。規格化された固有ベクトルを$v_j$、固有値を$-c_j^2,\ c_j\ge 0$とすると
+\begin{align*}
+  A^2 v_i=-c_j^2v_i
+\end{align*}
+となる。$c_j$が大きい順に並べておく。
+
+ここから次のようにして新たな正規直交基底$u_1,\dots,u_N$と数の列$a_1,a_2,\cdots,a_K,\ K\le N/2$を構成する。
+
+$c_1=0$ なら
+$Av_1=0$である。なぜなら$Av_1$の大きさを考えると
+\begin{align*}
+  |Av_1|^2=v_1^TA^TAv_1=-v_1^T A^2 v_1=0
+\end{align*}
+になる。$c_j$は大きい順に並べているので、$c_1$以降すべての$c_j$が0であり$Av_j=0$である。残りの正規直交系を$u_j=v_j$とおいて終了する。
+
+$c_1 > 0$の場合、$u_1:=v_1$とする。$u_2=-A u_1/c_1$は、$A^2u_2=-c_1^2 u_2,\ u_2\cdot u_1=0,\ |u_2|^2=1$を満たすので$u_1,u_2$は正規直交関係を満たす。さらに$a_1=c_1$とすると、
+\begin{align*}
+  Au_1=-a_1u_2,\quad Au_2=a_1 u_1
+\end{align*}
+という関係を満たすので
+\begin{align*}
+  A(u_1 \ u_2)=(u_1\ u_2)\mqty(0&a_1\\-a_1&0)
+\end{align*}
+の式を得る。
+
+$u_1,u_2$ではられる空間は$A^2$の作用で不変なので、$A^2$の残りの固有ベクトル$v_3,\cdots,v_N$を$u_1,u_2$に直交する空間の正規直交基底とすることができる。前と同様$c_j^2$が大きい順に並べておく。そうした後、$v_3$を選んで同じことを繰り返す。
+$c_3=0$なら、残りの正規直交基底$u_j=v_j$とおいて終了。$c_3 > 0$なら$u_3=v_3,\ u_4=-Av_3/c_3,\  a_2=c_3$とおくと
+\begin{align*}
+  A(u_1 \ u_2 \ u_3 \ u_4)=(u_1 \ u_2 \ u_3 \ u_4)\mqty(\dmat{0&a_1\\-a_1&0, 0&a_2\\-a_2&0})
+\end{align*}
+となる。
+
+これを繰り返すことにより、正規直交基底$u_1,\dots,u_N$と数の列$a_1,a_2,\cdots,a_K$が得られ、次の関係式を満たす。
+\begin{align*}
+  A(u_1\ u_2\ \cdots u_N)=(u_1\ u_2\ \cdots u_N)
+  \mqty(\dmat{0&a_1\\-a_1&0, 0&a_2\\-a_2&0,\ddots,0&a_K\\-a_K&0, 0, \ddots,0}).
+\end{align*}
+なので$O=(u_1\ u_2\ \cdots u_N)^T$とすれば、補題\ref{lemma}が証明される。
+
+
+\section{一般の時間、空間次元をもつ時空の場合の符号の証明}
+\label{app:proofB}
+ここでは式\eqref{B-properties1}, \eqref{B-signs}を証明する。
+まず、\eqref{defB}を少し整理する。両辺逆行列ととって
+\begin{align*}
+  B=(\Gamma^{1} \cdots \Gamma^{t})^{-1 T} C
+  =(-1)^t (\Gamma^{1})^T \cdots (\Gamma^{t})^{T} C
+  =(-1)^t \eta'^t C \Gamma^{1} \cdots \Gamma^{t}
+  =: b C \Gamma^{1} \cdots \Gamma^{t}
+\end{align*}
+を得る。$b$は符号だが、式\eqref{B-properties1}では、関係ない。
+
+偶数次元と奇数次元に分けて証明する。このあとの計算の際、整数$m$に対して
+\begin{align*}
+  (-1)^m=(-1)^{-m},\quad
+  (-1)^{m(m-1)/2}=(-1)^{\qty[\frac{m}{2}]}
+\end{align*}
+のような公式を用いて計算していく。
+
+\subsection{偶数次元$D=2n$の場合}
+$\mu=1,\cdots,t$の場合、
+\begin{align*}
+  B\Gamma^{\mu}B^{-1}
+  =C \Gamma^{1} \cdots \Gamma^{t} \Gamma^{\mu} (\Gamma^{t})^{-1} \cdots (\Gamma^{1})^{-1} C^{-1}
+  =(-1)^{t-1} C\Gamma^{\mu}C^{-1}
+  =(-1)^{t-1} \eta' (\Gamma^{\mu})^T
+  =(-1)^{t} \eta' \Gamma^{\mu*}
+\end{align*}
+となる。最後のところでは、$\Gamma^{\mu}$が反エルミートであることを用いた。同様にすると$\mu=t+1,\dots,D$の場合も
+$B\Gamma^{\mu}B^{-1}=(-1)^{t}\eta'\Gamma^{\mu *}$が示せる。
+したがって、$\eta=(-1)^t \eta'$とすれば、\eqref{B-properties1}の最初の式が示せる。
+
+また、
+\begin{align*}
+  B^T&=b( C \Gamma^{1} \cdots \Gamma^{t})^T
+  =b (\Gamma^{t})^T \cdots (\Gamma^{1})^T C^T
+  =\epsilon' b (\Gamma^{t})^T \cdots (\Gamma^{1})^T C\\
+  &=\epsilon' \eta'^{t} b C \Gamma^{t} \cdots \Gamma^{1}
+  =\epsilon' \eta'^{t} (-1)^{t(t-1)/2}b C \Gamma^{1} \cdots \Gamma^{t}=\epsilon' \eta^{t} (-1)^{t(t-1)/2} B
+\end{align*}
+を得る。したがって
+\begin{align*}
+  \epsilon=\epsilon' \eta'^{t} (-1)^{t(t-1)/2}
+  =(-1)^{n(n-1)/2} \eta'^n \eta'^{t} (-1)^{t(t-1)/2}
+  =(-1)^{n(n-1)/2-t(n+t)-t(t-1)/2} \eta^{n-t}
+\end{align*}
+符号のところをさらに計算する。
+\begin{align*}
+  (-1)^{n(n-1)/2-t(n+t)+t(t-1)/2}=(-1)^{\frac12 (n-t)(n-t-1)}
+  =(-1)^{\qty[\frac{s-t}{4}]}
+\end{align*}
+となる。まとめると
+\begin{align*}
+  \epsilon=(-1)^{\qty[\frac{s-t}{4}]}\eta^{\qty[\frac{s-t}{2}]}
+\end{align*}
+となり、\eqref{B-properties1}の２つめと\eqref{B-signs}の式が示せた。
+
+\subsection{奇数次元$D=2n+1$の場合}
+$s=0$の場合、$B=(\text{phase}) C$となるので、$\eta=\eta', \xi=\xi',\ \epsilon=\epsilon'$となって式\eqref{B-properties1}、\eqref{B-signs}が成り立つ。
+
+$s\ge 1$の場合について考える。$\Gamma^{2n+1}$はエルミート行列であることに注意して、$B \Gamma^{2n+1} B^{-1}=\xi \Gamma^{2n+1 *}$となる符号$\xi$を求めよう。
+\begin{align*}
+  B \Gamma^{2n+1} B^{-1}
+  C \Gamma^{1} \cdots \Gamma^{t} \Gamma^{2n+1}
+  (\Gamma^{t})^{-1} \cdots (\Gamma^{t})^{-1}C^{-1}
+  =(-1)^{t} C \Gamma^{2n+1} C^{-1}
+  =(-1)^{t}(-1)^{n} \Gamma^{2n+1 *}
+\end{align*}
+となるので
+\begin{align*}
+  \xi=(-1)^{n-t}
+  =(-1)^{\qty[n-t+\frac12]}
+  =(-1)^{\qty[\frac{s-1+t}{2}-t+\frac12]}
+  =(-1)^{\qty[\frac{s-t}{2}]}
+\end{align*}
+となる。\eqref{B-properties1}の前の式は$\eta=\xi$の場合のみ成り立つ。$\epsilon$は空間次元を一つ減らして$s'=s-1$にした場合の偶数次元の計算と同じであり、$\frac{s'-t}{4}$は整数または半整数であることを用いると
+\begin{align*}
+  \epsilon
+  =(-1)^{\qty[\frac{s'-t}{4}]}\eta^{\qty[\frac{s'-t}{2}]}  
+  =(-1)^{\qty[\frac{s-t}{4}]}\eta^{\qty[\frac{s-t}{2}]}
+\end{align*}
+となるので\eqref{B-properties1}と\eqref{B-signs}が成り立つ。
+
+\begin{thebibliography}{9}
+  \bibitem{Kugo} 九後汰一郎, Webページにあるノート.
+  \bibitem{Polchinski} J.~Polchinski, ``String Theory vol.~2''のAppendix.
+  \bibitem{Zumino} B.~Zumino,``Normal Forms of Complex Matrices''. J.~Math.~ Phys.\ 3(1962)1055–1057
+\end{thebibliography}
+\end{document}
