@@ -1,13 +1,22 @@
-\documentclass[12pt,a4paper]{jlreq}
-\usepackage[text={16cm,25cm},centering]{geometry}
+\RequirePackage{plautopatch}
+\documentclass[12pt,a4paper,dvipdfmx]{jlreq}
+\usepackage[text={16cm,24cm},centering]{geometry}
 \usepackage{tgtermes,tgheros,tgcursor}
 \usepackage[libertine]{newtxmath}
 %\usepackage{newtxmath}
 %\usepackage{amsmath,amssymb}
 \usepackage{physics}
-\usepackage{mathtools}
 \usepackage{hyperref}
-\mathtoolsset{showonlyrefs}
+\hypersetup{%
+ %setpagesize=false,
+ %bookmarksnumbered=true,%
+ %bookmarksopen=true,%
+ colorlinks=true,%
+ linkcolor=blue,
+ citecolor=blue,
+}
+% \usepackage{mathtools}
+% \mathtoolsset{showonlyrefs}
 
 %\numberwithin{equation}{section}
 
@@ -341,7 +350,7 @@ $D=8k+4$の場合には$\epsilon'=-1$であり、Weylスピノールは擬実表
   \label{SpinDrep}
 \end{table}
 
-\section{Euclid空間の$\Pin$群の表現}
+\section{Euclid空間のPin\texorpdfstring{${}^{+}$}{+}群の表現}
 Clifford代数の表現からは、$\Pin(D)$の表現も作ることができる。$\Pin(D)$とは、鏡映を含むO$(D)$群の二重被覆であり、Spin$(D)$に鏡映を合わせたものである。肩の$+$は鏡映$R$が$R^2=1$を満たすことを表す。
 
 Clifford代数の表現が与えられたとき、様々なSpin$(D)$の元
@@ -375,7 +384,7 @@ $\exp(\theta_{\mu\nu}\Gamma^{\mu\nu})$と$\mu$軸に垂直な面での鏡映$\Ga
   \caption{$\Pin(D)$の表現。偶数次元は$\eta'=+1$の場合のみ示している。}
   \end{table}
 
-\section{Euclid空間の$\Pim$群の表現}
+\section{Euclid空間のPin\texorpdfstring{${}^{-}$}{−}群の表現}
 鏡映を含むO$(D)$群の二重被覆には、先程考えた$\Pin(D)$とは異なるものがある。これは、$\Pim(D)$と呼ばれる。肩の$-$は鏡映$R$が$R^2=-1$を満たすことを表す。ここでは$\Pim(D)$の表現を考えよう。
 
 Clifford代数の表現が与えられたとき、先程と異なり$\mu$軸に垂直な面での鏡映は$i\Gamma^{\mu}$で表される。これらと様々なSpin$(D)$の元
